@@ -57,7 +57,7 @@ A resposta dessa requisição deve seguir a seguinte estrutura:
 
 ### Requisitos
 
-- Utilizar NodeJS para criar a aplicação;
+- Utilizar NodeJS ou Go para criar a aplicação;
 - Toda configuração e chaves de acesso (se necessário) devem ser acessadas em um arquivo de ambiente. Sua configuração deve estar documentada no README;
 - Para obter o gif no Giphy, utilize o título da receita recebido pelo RecipePuppy;
 - Os ingredientes recebidos pelo RecipePuppy são recebidos em String. Organize os ingredientes em um array e ordene esse array por ordem alfabética;
@@ -73,7 +73,7 @@ A resposta dessa requisição deve seguir a seguinte estrutura:
 - Todos requisitos foram atendidos?
 
 ### Boas Práticas
-- O código está de acordo com o guia de estilo do NodeJS?
+- O código está de acordo com o guia de estilo do NodeJS / Go?
 - O código está bem estruturado?
 - O código está fluente na linguagem?
 - O código faz o uso correto de Design Patterns?
