@@ -30,19 +30,21 @@ const buildGetReturn = async (ingredientList, recipeList) => {
         recipes: []
     }
 
-    await Promise.all(recipeList.map(async recipe => {
-        const {
-            title = '', href: link = '', ingredients = ''
-        } = recipe;
-        const gif = await getGiphy.getLink(title);
+    await Promise.all(
+        recipeList.map(async recipe => {
+            const {
+                title = '', href: link = '', ingredients = ''
+            } = recipe;
+            const gif = await getGiphy.getLink(title);
 
-        resp.recipes.push({
-            title,
-            ingredients: ingredients.split(', '),
-            link,
-            gif
-        });
-    }));
-
+            resp.recipes.push({
+                title,
+                ingredients: ingredients.split(', '),
+                link,
+                gif
+            });
+        })
+    );
+  
     return resp;
 }
