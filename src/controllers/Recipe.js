@@ -1,5 +1,6 @@
-const axios = require('axios');
 const utils = require('../utils');
+const getRecipesFromPuppy = require('../services/getRecipesFromPuppy');
+const getGiphy = require('../services/getGiphy');
 const validateSchema = require('../services/validateSchema');
 const schemaGet = require('../services/schemas/recipe/get');
 
@@ -7,12 +8,13 @@ module.exports = {
     async get(req, res) {
         try {
             const { i, page = 1 } = req.query;
-            const ingredientList = (i.replace(', ', ',')).split(',');
+            const ingredients = i.replace(', ', ',');
+            const ingredientList = ingredients.split(',');
 
             validateSchema(schemaGet, { ingredientList, page });
             
-            const recipeList = await getRecipes(i, page);
-            const resp = await buildReturn(ingredientList, recipeList);
+            const recipeList = await getRecipesFromPuppy(ingredients, page);
+            const resp = await buildGetReturn(ingredientList, recipeList);
 
             res.json(resp);
 
@@ -22,23 +24,7 @@ module.exports = {
     }
 }
 
-const getRecipes = async (ingredients, page) => {
-    const { data } = await axios.get(
-        process.env.RECIPE_PUPPY_BASE_URL,
-        {
-            params: {
-                i: ingredients,
-                p: page
-            }
-        }
-    );
-
-    const { results } = data;
-
-    return results || [];
-}
-
-const buildReturn = async (ingredientList, recipeList) => {
+const buildGetReturn = async (ingredientList, recipeList) => {
     const resp = {
         keywords: ingredientList,
         recipes: []
@@ -49,7 +35,7 @@ const buildReturn = async (ingredientList, recipeList) => {
             title = '', href: link = '', ingredients = ''
         } = recipe;
 
-        const gif = await getGiphy(title);
+        const gif = await getGiphy.getLink(title);
 
         resp.recipes.push({
             title,
@@ -58,31 +44,6 @@ const buildReturn = async (ingredientList, recipeList) => {
             gif
         });
     }
-
-    return resp;
-}
-
-const getGiphy = async (keyword, limit = 1) => {
-    let resp = '';
-
-    const response = await axios.get(
-        `${process.env.GIPHY_API_BASE_URL}/gifs/search`,
-        {
-            params: {
-                api_key: process.env.GIPHY_API_KEY,
-                q: keyword,
-                limit
-            }
-        }
-    );
-
-    const { data } = response.data;
-
-    if(data && data.length) {
-        const { images } = data[0];
-        const { original_still } = images;
-        resp = original_still.url || '';
-    }  
 
     return resp;
 }
