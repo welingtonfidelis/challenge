@@ -1,5 +1,7 @@
 const axios = require('axios');
 const utils = require('../utils');
+const validateSchema = require('../services/validateSchema');
+const schemaGet = require('../services/schemas/recipe/get');
 
 module.exports = {
     async get(req, res) {
@@ -7,6 +9,8 @@ module.exports = {
             const { i, page = 1 } = req.query;
             const ingredientList = (i.replace(', ', ',')).split(',');
 
+            validateSchema(schemaGet, { ingredientList, page });
+            
             const recipeList = await getRecipes(i, page);
             const resp = await buildReturn(ingredientList, recipeList);
 
