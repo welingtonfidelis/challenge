@@ -8,7 +8,7 @@ module.exports = {
             const ingredientList = (i.replace(', ', ',')).split(',');
 
             const recipeList = await getRecipes(i, page);
-            const resp = buildReturn(ingredientList, recipeList);
+            const resp = await buildReturn(ingredientList, recipeList);
 
             res.json(resp);
 
@@ -31,10 +31,10 @@ const getRecipes = async (ingredients, page) => {
 
     const { results } = data;
 
-    return results || []
+    return results || [];
 }
 
-const buildReturn = (ingredientList, recipeList) => {
+const buildReturn = async (ingredientList, recipeList) => {
     const resp = {
         keywords: ingredientList,
         recipes: []
@@ -42,9 +42,10 @@ const buildReturn = (ingredientList, recipeList) => {
 
     for (const recipe of recipeList) {
         const {
-            title = '', href: link = '',
-            ingredients = '', gif = ''
+            title = '', href: link = '', ingredients = ''
         } = recipe;
+
+        const gif = await getGiphy(title);
 
         resp.recipes.push({
             title,
@@ -53,6 +54,31 @@ const buildReturn = (ingredientList, recipeList) => {
             gif
         });
     }
+
+    return resp;
+}
+
+const getGiphy = async (keyword, limit = 1) => {
+    let resp = '';
+
+    const response = await axios.get(
+        `${process.env.GIPHY_API_BASE_URL}/gifs/search`,
+        {
+            params: {
+                api_key: process.env.GIPHY_API_KEY,
+                q: keyword,
+                limit
+            }
+        }
+    );
+
+    const { data } = response.data;
+
+    if(data && data.length) {
+        const { images } = data[0];
+        const { original_still } = images;
+        resp = original_still.url || '';
+    }  
 
     return resp;
 }
