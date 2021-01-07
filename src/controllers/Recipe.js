@@ -12,7 +12,7 @@ module.exports = {
             const ingredientList = ingredients.split(',');
 
             validateSchema(schemaGet, { ingredientList, page });
-            
+
             const recipeList = await getRecipesFromPuppy(ingredients, page);
             const resp = await buildGetReturn(ingredientList, recipeList);
 
@@ -30,11 +30,10 @@ const buildGetReturn = async (ingredientList, recipeList) => {
         recipes: []
     }
 
-    for (const recipe of recipeList) {
+    await Promise.all(recipeList.map(async recipe => {
         const {
             title = '', href: link = '', ingredients = ''
         } = recipe;
-
         const gif = await getGiphy.getLink(title);
 
         resp.recipes.push({
@@ -43,7 +42,7 @@ const buildGetReturn = async (ingredientList, recipeList) => {
             link,
             gif
         });
-    }
+    }));
 
     return resp;
 }
