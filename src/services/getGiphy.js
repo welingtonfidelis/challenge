@@ -1,7 +1,18 @@
 const axios = require('axios');
 
+const isTest = process.env.NODE_ENV === 'test';
+const mock = {
+  images: {
+    original: {
+      url: 'http://yourgiphy.com',
+    },
+  },
+};
+
 module.exports = {
   async getAllInfo(keyword, limit = 1) {
+    if (isTest) return mock;
+
     const response = await axios.get(
       `${process.env.GIPHY_API_BASE_URL}/gifs/search`,
       {

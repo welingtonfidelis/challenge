@@ -13,4 +13,6 @@ module.exports = (schema, input) => {
 
     utils.createError('Bad Request', messages, 400);
   }
+
+  return true;
 };
