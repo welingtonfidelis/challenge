@@ -1,13 +1,8 @@
 const axios = require('axios');
 
+const mock = require('../mock/serviceGiphyReturn');
+
 const isTest = process.env.NODE_ENV === 'test';
-const mock = {
-  images: {
-    original: {
-      url: 'http://yourgiphy.com',
-    },
-  },
-};
 
 module.exports = {
   async getAllInfo(keyword, limit = 1) {

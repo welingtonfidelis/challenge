@@ -41,7 +41,7 @@ module.exports = {
       const recipeList = await getRecipesFromPuppy(ingredients, page);
       const resp = await buildGetReturn(ingredientList, recipeList);
 
-      res.json(resp);
+      res.status(200).json(resp);
     } catch (error) {
       utils.errorResponse(res, error);
     }

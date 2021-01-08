@@ -1,8 +1,8 @@
 const validateSchema = require('../../services/validateSchema');
-const schema = require('../../services/schemas/tests/get');
+const schema = require('../../mock/schemaTest');
 
 describe('Service validate inputs', () => {
-  test('Expected recipes list', async () => {
+  test('Expected true from validate', async () => {
     const ingredientList = ['milk', 'egg', 'suggar'];
     const page = 1;
 
