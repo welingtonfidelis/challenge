@@ -5,7 +5,7 @@ const expectedResponse = {
   keywords: [
     'milk',
     'egg',
-    ' suggar',
+    'suggar',
   ],
   recipes: [
     {

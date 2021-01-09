@@ -6,8 +6,8 @@ describe('Service validate inputs', () => {
     const ingredientList = ['milk', 'egg', 'suggar'];
     const page = 1;
 
-    const isValid = validateSchema(schema, { page, ingredientList });
+    const validate = validateSchema(schema, { page, ingredientList });
 
-    expect(isValid).toEqual(true);
+    expect(validate).toEqual({ error: false });
   });
 });

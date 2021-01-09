@@ -6,8 +6,7 @@ module.exports = Joi.object({
     .min(1)
     .max(50),
 
-  ingredientList: Joi.array()
-    .items(Joi.string().min(2))
-    .min(1)
-    .max(3),
+  i: Joi.string()
+    .pattern(new RegExp('^([a-zA-Z]+\\s*[a-zA-Z]*)+(,\\s*[a-zA-Z]+\\s*[a-zA-Z]*){0,2}$'))
+    .required(),
 });

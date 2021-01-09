@@ -1,8 +1,6 @@
 const utils = require('../utils');
 const getRecipesFromPuppy = require('../services/getRecipesFromPuppy');
 const getGiphy = require('../services/getGiphy');
-const validateSchema = require('../services/validateSchema');
-const schemaGet = require('../services/schemas/recipe/get');
 
 const buildGetReturn = async (ingredientList, recipeList) => {
   const resp = {
@@ -33,12 +31,9 @@ module.exports = {
   async get(req, res) {
     try {
       const { i, page = 1 } = req.query;
-      const ingredients = i.replace(', ', ',');
-      const ingredientList = ingredients.split(',');
+      const ingredientList = (i.split(',')).map((ingredient) => ingredient.trim());
 
-      validateSchema(schemaGet, { ingredientList, page });
-
-      const recipeList = await getRecipesFromPuppy(ingredients, page);
+      const recipeList = await getRecipesFromPuppy(i, page);
       const resp = await buildGetReturn(ingredientList, recipeList);
 
       res.status(200).json(resp);
