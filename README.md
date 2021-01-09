@@ -1,19 +1,19 @@
 # Delivery Much Tech Challenge
-Este projeto é resultado do desafio técnico da empresa Delivery Much, e tem o objetivo de receber uma lista de ingredients e retornar uma lista de receitas possíveis com base nos ingredients através da api [Recipe Puppy] , além de um giphy ligado ao nome de cada receita com uso da api [Developers Giphy].
+Este projeto é resultado do desafio técnico da empresa Delivery Much, e tem o objetivo de receber uma lista de ingredients e retornar receitas possíveis com base nos ingredients através da api [Recipe Puppy] , além de um giphy ligado ao nome de cada receita com uso da api [Developers Giphy].
 O projeto contém testes unitários com uso de [Jest], validação de entrada de dados com [Joi] e criação de um container com [Docker]
 
 ---
 
 ## Requisitos
-- [Docker] - OPCIONAL. Caso deseje executar a api através de um container docker;
-- [Postman] - OPCIONAL. Caso deseje fazer requisições à api através de um client http, pode-se usar o Postman;
-- [Node.js] - Versão 12 ou superior;
+- [Node.js] - Versão 10 ou superior;
 - [API KEY Giphy] - Uma chave válida para uso da giphy api;
+- [Docker] - OPCIONAL. Caso deseje executar o projeto através de um container docker;
+- [Postman] - OPCIONAL. Caso deseje fazer requisições à api através de um client http, pode-se usar o Postman;
 
 ---
 
 ## Instalação 
-Após clonar o projeto, é preciso incluir alguns valores nas variáveis de ambiente. Para isso, crie um arquivo nomeado de **.env** no diretório do projeto e preencha o arquivo com as informações do arquivo **.env.example** na raiz do projeto (substituindo os valores não default com suas informações).
+Após clonar o projeto (`git clone https://github.com/welingtonfidelis/challenge.git`), é preciso incluir alguns valores nas variáveis de ambiente. Para isso, crie um arquivo nomeado de **.env** no diretório do projeto e preencha o arquivo com as informações do arquivo **.env.example** na raiz do projeto (substituindo os valores não default com suas informações).
 
 Há duas maneiras de executar o projeto, descritas abaixo.
 
